@@ -37,7 +37,7 @@ public class MenjacnicaGUI extends JFrame {
 	private JButton btnDodajKurs;
 	private JButton btnIzbrisiKurs;
 	private JButton btnIzvrsiZamenu;
-	private JTextArea jtaStatus;
+	private static JTextArea jtaStatus;
 	private JScrollPane scrollPane;
 	private JTable table;
 	private JScrollPane scrollPane_1;
@@ -113,6 +113,13 @@ public class MenjacnicaGUI extends JFrame {
 	private JButton getBtnDodajKurs() {
 		if (btnDodajKurs == null) {
 			btnDodajKurs = new JButton("Dodaj Kurs");
+			btnDodajKurs.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					DodajKursGUI dodajKursProzor = new DodajKursGUI();
+					dodajKursProzor.setVisible(true);
+					dodajKursProzor.setLocationRelativeTo(null);
+				}
+			});
 			btnDodajKurs.setPreferredSize(new Dimension(100, 23));
 		}
 		return btnDodajKurs;
@@ -131,7 +138,7 @@ public class MenjacnicaGUI extends JFrame {
 		}
 		return btnIzvrsiZamenu;
 	}
-	private JTextArea getJtaStatus() {
+	public static JTextArea getJtaStatus() {
 		if (jtaStatus == null) {
 			jtaStatus = new JTextArea();
 			jtaStatus.setBorder(new TitledBorder(null, "STATUS", TitledBorder.LEADING, TitledBorder.TOP, null, null));
