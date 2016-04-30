@@ -7,8 +7,10 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import java.awt.FlowLayout;
+import java.awt.Frame;
 import java.awt.Dimension;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JTextArea;
 import javax.swing.JScrollPane;
 import javax.swing.border.TitledBorder;
@@ -16,11 +18,15 @@ import javax.swing.JTable;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
+
 import java.awt.Toolkit;
 import javax.swing.KeyStroke;
 import java.awt.event.KeyEvent;
 import java.awt.event.InputEvent;
 import javax.swing.ImageIcon;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class MenjacnicaGUI extends JFrame {
 
@@ -31,7 +37,7 @@ public class MenjacnicaGUI extends JFrame {
 	private JButton btnDodajKurs;
 	private JButton btnIzbrisiKurs;
 	private JButton btnIzvrsiZamenu;
-	private JTextArea textArea;
+	private JTextArea jtaStatus;
 	private JScrollPane scrollPane;
 	private JTable table;
 	private JScrollPane scrollPane_1;
@@ -125,17 +131,17 @@ public class MenjacnicaGUI extends JFrame {
 		}
 		return btnIzvrsiZamenu;
 	}
-	private JTextArea getTextArea() {
-		if (textArea == null) {
-			textArea = new JTextArea();
-			textArea.setBorder(new TitledBorder(null, "STATUS", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+	private JTextArea getJtaStatus() {
+		if (jtaStatus == null) {
+			jtaStatus = new JTextArea();
+			jtaStatus.setBorder(new TitledBorder(null, "STATUS", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		}
-		return textArea;
+		return jtaStatus;
 	}
 	private JScrollPane getScrollPane() {
 		if (scrollPane == null) {
 			scrollPane = new JScrollPane();
-			scrollPane.setViewportView(getTextArea());
+			scrollPane.setViewportView(getJtaStatus());
 		}
 		return scrollPane;
 	}
@@ -180,6 +186,16 @@ public class MenjacnicaGUI extends JFrame {
 	private JMenuItem getMntmOpen() {
 		if (mntmOpen == null) {
 			mntmOpen = new JMenuItem("Open");
+			mntmOpen.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					JFileChooser fc = new JFileChooser();
+					int povratnaVrednost = fc.showOpenDialog(getContentPane());
+					if(povratnaVrednost == JFileChooser.APPROVE_OPTION){
+						if(jtaStatus.getText().equals("")) jtaStatus.setText("Ucitan fajl " + fc.getSelectedFile().getAbsolutePath());
+						else jtaStatus.setText(jtaStatus.getText() +'\n' + "Ucitan fajl " + fc.getSelectedFile().getAbsolutePath());
+					}
+				}
+			});
 			mntmOpen.setIcon(new ImageIcon(MenjacnicaGUI.class.getResource("/com/sun/java/swing/plaf/windows/icons/TreeOpen.gif")));
 			mntmOpen.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, InputEvent.CTRL_MASK));
 		}
@@ -188,6 +204,18 @@ public class MenjacnicaGUI extends JFrame {
 	private JMenuItem getMntmSave() {
 		if (mntmSave == null) {
 			mntmSave = new JMenuItem("Save");
+			mntmSave.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					JFileChooser fc = new JFileChooser();
+					int povratnaVrednost = fc.showSaveDialog(getContentPane());
+					if(povratnaVrednost == JFileChooser.APPROVE_OPTION){
+						if(jtaStatus.getText().equals("")) 
+							jtaStatus.setText("Sacuvan fajl " + fc.getSelectedFile().getAbsolutePath());
+						else
+							jtaStatus.setText(jtaStatus.getText() +'\n' + "Sacuvan fajl " + fc.getSelectedFile().getAbsolutePath());
+					}
+				}
+			});
 			mntmSave.setIcon(new ImageIcon(MenjacnicaGUI.class.getResource("/com/sun/java/swing/plaf/windows/icons/FloppyDrive.gif")));
 			mntmSave.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, InputEvent.CTRL_MASK));
 		}
@@ -196,6 +224,15 @@ public class MenjacnicaGUI extends JFrame {
 	private JMenuItem getMntmExit() {
 		if (mntmExit == null) {
 			mntmExit = new JMenuItem("Exit");
+			mntmExit.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+				
+					int opcija = JOptionPane.showConfirmDialog(getContentPane(), "Da li zelite da izadjete iz programa?");
+					if(opcija == JOptionPane.YES_OPTION){
+						dispose();
+					}
+				}
+			});
 			mntmExit.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_X, InputEvent.ALT_MASK));
 		}
 		return mntmExit;
@@ -203,6 +240,11 @@ public class MenjacnicaGUI extends JFrame {
 	private JMenuItem getMntmAbout() {
 		if (mntmAbout == null) {
 			mntmAbout = new JMenuItem("About");
+			mntmAbout.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					JOptionPane.showMessageDialog(getContentPane(), "Autor: Andrija Svrkota");
+				}
+			});
 		}
 		return mntmAbout;
 	}
