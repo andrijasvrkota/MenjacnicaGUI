@@ -3,19 +3,22 @@ package menjacnica.logika;
 public class Kurs {
 	private String sifra;
 	private String skraceniNaziv;
-	private String prodajniKurs;
-	private String srednjiKurs;
-	private String kupovniKurs;
+	private int prodajniKurs;
+	private int srednjiKurs;
+	private int kupovniKurs;
 	private String naziv;
 
-	public Kurs(String sifra, String naziv, double prodajniKurs, double kupovniKurs,
-			double srednjiKurs, String skraceniNaziv) {
+	public Kurs(String sifra, String naziv, int prodajniKurs, int kupovniKurs,
+			int srednjiKurs, String skraceniNaziv) {
 		this.sifra = sifra;
-		this.skraceniNaziv = skraceniNaziv;
-		this.prodajniKurs = prodajniKurs + "";
-		this.srednjiKurs = srednjiKurs + "";
-		this.kupovniKurs = kupovniKurs + "";
 		this.naziv = naziv;
+		this.prodajniKurs = prodajniKurs;
+		this.kupovniKurs = kupovniKurs;
+		this.srednjiKurs = srednjiKurs;
+		this.skraceniNaziv = skraceniNaziv;
+	}
+	public Kurs(){
+		
 	}
 
 	public String getSifra() {
@@ -34,27 +37,27 @@ public class Kurs {
 		this.skraceniNaziv = skraceniNaziv;
 	}
 
-	public String getProdajniKurs() {
+	public int getProdajniKurs() {
 		return prodajniKurs;
 	}
 
-	public void setProdajniKurs(String prodajniKurs) {
+	public void setProdajniKurs(int prodajniKurs) {
 		this.prodajniKurs = prodajniKurs;
 	}
 
-	public String getSrednjiKurs() {
+	public int getSrednjiKurs() {
 		return srednjiKurs;
 	}
 
-	public void setSrednjiKurs(String srednjiKurs) {
+	public void setSrednjiKurs(int srednjiKurs) {
 		this.srednjiKurs = srednjiKurs;
 	}
 
-	public String getKupovniKurs() {
+	public int getKupovniKurs() {
 		return kupovniKurs;
 	}
 
-	public void setKupovniKurs(String kupovniKurs) {
+	public void setKupovniKurs(int kupovniKurs) {
 		this.kupovniKurs = kupovniKurs;
 	}
 

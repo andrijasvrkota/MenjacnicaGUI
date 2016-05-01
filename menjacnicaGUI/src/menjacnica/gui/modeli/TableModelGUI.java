@@ -8,11 +8,15 @@ import menjacnica.logika.Kurs;
 
 public class TableModelGUI extends AbstractTableModel {
 
-	private final String[] kolone = new String[] { "Sifra", "Skraceni naziv", "Prodajni", "Srednji", "Kupovni", "Naziv"};
-	LinkedList<Kurs> kursevi;
+	private final String[] kolone = new String[]{"Sifra","Skraceni naziv","Prodajni","Srednji","Kupovni","Naziv"};
+	private LinkedList<Kurs> kursevi;
 	
 	public TableModelGUI(LinkedList<Kurs> kursevi) {
-		this.kursevi = kursevi;
+		if (kursevi == null) {
+			this.kursevi = new LinkedList<>();
+		} else {
+			this.kursevi = kursevi;
+		}
 	}
 	
 	@Override
@@ -46,5 +50,17 @@ public class TableModelGUI extends AbstractTableModel {
 		}
 	
 	}
-
+//	@Override
+//	public boolean isCellEditable(int rowIndex, int columnIndex) {
+//		return false;
+//	}
+//	
+	public void ucitajKurseve(LinkedList<Kurs> kursevi) {
+		this.kursevi = kursevi;
+		fireTableDataChanged();
+	}
+	@Override
+	public String getColumnName(int column) {
+		return kolone[column];
+	}
 }

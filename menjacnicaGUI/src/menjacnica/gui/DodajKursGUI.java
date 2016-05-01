@@ -6,11 +6,16 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import menjacnica.logika.Kurs;
+
 import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.JTextField;
 import javax.swing.JButton;
+import javax.swing.table.TableModel;
 import java.awt.event.ActionListener;
+import java.util.LinkedList;
 import java.awt.event.ActionEvent;
 
 public class DodajKursGUI extends JFrame {
@@ -28,8 +33,9 @@ public class DodajKursGUI extends JFrame {
 	private JTextField jtfProdajniKurs;
 	private JTextField jtfSrednjiKurs;
 	private JTextField jtfSkraceniNaziv;
-	private JButton btnNewButton;
+	private JButton btnDodaj;
 	private JButton btnOdustani;
+	public static LinkedList<Kurs> kursevi = new LinkedList<>();
 
 	/**
 	 * Launch the application.
@@ -71,7 +77,7 @@ public class DodajKursGUI extends JFrame {
 		contentPane.add(getJtfProdajniKurs());
 		contentPane.add(getJtfSrednjiKurs());
 		contentPane.add(getJtfSkraceniNaziv());
-		contentPane.add(getBtnNewButton());
+		contentPane.add(getBtnDodaj());
 		contentPane.add(getBtnOdustani());
 	}
 	private JLabel getLblSifra() {
@@ -106,7 +112,7 @@ public class DodajKursGUI extends JFrame {
 		}
 		return lblNaziv;
 	}
-	private JLabel getLblKupovniKurs() {
+	public JLabel getLblKupovniKurs() {
 		if (lblKupovniKurs == null) {
 			lblKupovniKurs = new JLabel("Kupovni kurs");
 			lblKupovniKurs.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -114,7 +120,7 @@ public class DodajKursGUI extends JFrame {
 		}
 		return lblKupovniKurs;
 	}
-	private JLabel getLblSkraceniNaziv() {
+	public JLabel getLblSkraceniNaziv() {
 		if (lblSkraceniNaziv == null) {
 			lblSkraceniNaziv = new JLabel("Skraceni naziv");
 			lblSkraceniNaziv.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -122,7 +128,7 @@ public class DodajKursGUI extends JFrame {
 		}
 		return lblSkraceniNaziv;
 	}
-	private JTextField getJtfSifra() {
+	public JTextField getJtfSifra() {
 		if (jtfSifra == null) {
 			jtfSifra = new JTextField();
 			jtfSifra.setBounds(10, 46, 145, 20);
@@ -130,7 +136,7 @@ public class DodajKursGUI extends JFrame {
 		}
 		return jtfSifra;
 	}
-	private JTextField getJtfNaziv() {
+	public JTextField getJtfNaziv() {
 		if (jtfNaziv == null) {
 			jtfNaziv = new JTextField();
 			jtfNaziv.setColumns(10);
@@ -138,7 +144,7 @@ public class DodajKursGUI extends JFrame {
 		}
 		return jtfNaziv;
 	}
-	private JTextField getJtfKupovniKurs() {
+	public JTextField getJtfKupovniKurs() {
 		if (jtfKupovniKurs == null) {
 			jtfKupovniKurs = new JTextField();
 			jtfKupovniKurs.setColumns(10);
@@ -146,7 +152,7 @@ public class DodajKursGUI extends JFrame {
 		}
 		return jtfKupovniKurs;
 	}
-	private JTextField getJtfProdajniKurs() {
+	public JTextField getJtfProdajniKurs() {
 		if (jtfProdajniKurs == null) {
 			jtfProdajniKurs = new JTextField();
 			jtfProdajniKurs.setColumns(10);
@@ -154,7 +160,7 @@ public class DodajKursGUI extends JFrame {
 		}
 		return jtfProdajniKurs;
 	}
-	private JTextField getJtfSrednjiKurs() {
+	public JTextField getJtfSrednjiKurs() {
 		if (jtfSrednjiKurs == null) {
 			jtfSrednjiKurs = new JTextField();
 			jtfSrednjiKurs.setColumns(10);
@@ -162,7 +168,7 @@ public class DodajKursGUI extends JFrame {
 		}
 		return jtfSrednjiKurs;
 	}
-	private JTextField getJtfSkraceniNaziv() {
+	public JTextField getJtfSkraceniNaziv() {
 		if (jtfSkraceniNaziv == null) {
 			jtfSkraceniNaziv = new JTextField();
 			jtfSkraceniNaziv.setColumns(10);
@@ -170,28 +176,18 @@ public class DodajKursGUI extends JFrame {
 		}
 		return jtfSkraceniNaziv;
 	}
-	private JButton getBtnNewButton() {
-		if (btnNewButton == null) {
-			btnNewButton = new JButton("Dodaj");
-			btnNewButton.addActionListener(new ActionListener() {
+	public JButton getBtnDodaj() {
+		if (btnDodaj == null) {
+			btnDodaj = new JButton("Dodaj");
+			btnDodaj.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					String sifra = jtfSifra.getText();
-					String naziv = jtfNaziv.getText();
-					String prodajniKurs  = jtfProdajniKurs.getText();
-					String kupovniKurs  = jtfKupovniKurs.getText();
-					String srednjiKurs = jtfSrednjiKurs.getText();
-					String skraceniNaziv = jtfSkraceniNaziv.getText();
-					String spojeno = "Sifra: " +sifra + " Naziv: " +naziv + " Prodajni kurs: " +prodajniKurs
-					+ " Kupovni kurs: " +kupovniKurs + " Srednji kurs: " +srednjiKurs + " Skraceni naziv: " +skraceniNaziv;
-					if(MenjacnicaGUI.getJtaStatus().getText().equals(""))
-						MenjacnicaGUI.getJtaStatus().setText(spojeno);
-					else
-						MenjacnicaGUI.getJtaStatus().setText(MenjacnicaGUI.getJtaStatus().getText()+'\n'+spojeno);
+					GUIKontroler.unosKursa();
+					
 				}
 			});
-			btnNewButton.setBounds(10, 206, 145, 31);
+			btnDodaj.setBounds(10, 206, 145, 31);
 		}
-		return btnNewButton;
+		return btnDodaj;
 	}
 	private JButton getBtnOdustani() {
 		if (btnOdustani == null) {
@@ -204,5 +200,9 @@ public class DodajKursGUI extends JFrame {
 			btnOdustani.setBounds(188, 206, 145, 31);
 		}
 		return btnOdustani;
+	}
+	
+	public static LinkedList<Kurs> getKursevi(){
+		return kursevi;
 	}
 }
