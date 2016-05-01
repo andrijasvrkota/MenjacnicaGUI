@@ -17,6 +17,7 @@ import javax.swing.border.TitledBorder;
 import javax.swing.table.TableModel;
 
 import menjacnica.gui.modeli.TableModelGUI;
+import menjacnica.logika.Kurs;
 
 import javax.swing.JTable;
 import javax.swing.JMenuBar;
@@ -129,6 +130,22 @@ public class MenjacnicaGUI extends JFrame {
 	private JButton getBtnIzbrisiKurs() {
 		if (btnIzbrisiKurs == null) {
 			btnIzbrisiKurs = new JButton("Izbrisi Kurs");
+			btnIzbrisiKurs.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					int indeks = tableMenjacnica.getSelectedRow();
+					if(indeks == -1){
+						JOptionPane.showMessageDialog(null, "Izaberite red koji zelite da izbrisete");
+					}else{
+						int opcija = JOptionPane.showConfirmDialog(null, "Da li ste sigurni da zelite da izbrisete " 
+					+(tableMenjacnica.getSelectedRow()+1) + ". red?");
+						if(opcija == JOptionPane.YES_OPTION){
+							TableModelGUI tm  = (TableModelGUI) tableMenjacnica.getModel();
+							Kurs k = tm.getKurs(indeks);
+							GUIKontroler.izbrisiKurs(k,indeks);
+						}
+					}
+				}
+			});
 			btnIzbrisiKurs.setPreferredSize(new Dimension(100, 23));
 		}
 		return btnIzbrisiKurs;

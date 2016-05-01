@@ -50,11 +50,11 @@ public class TableModelGUI extends AbstractTableModel {
 		}
 	
 	}
-//	@Override
-//	public boolean isCellEditable(int rowIndex, int columnIndex) {
-//		return false;
-//	}
-//	
+	@Override
+	public boolean isCellEditable(int rowIndex, int columnIndex) {
+		return false;
+	}
+	
 	public void ucitajKurseve(LinkedList<Kurs> kursevi) {
 		this.kursevi = kursevi;
 		fireTableDataChanged();
@@ -62,5 +62,8 @@ public class TableModelGUI extends AbstractTableModel {
 	@Override
 	public String getColumnName(int column) {
 		return kolone[column];
+	}
+	public Kurs getKurs(int indeks){
+		return kursevi.get(indeks);
 	}
 }

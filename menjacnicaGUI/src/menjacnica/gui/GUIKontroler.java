@@ -92,4 +92,22 @@ public class GUIKontroler {
 	public static LinkedList<Kurs> vratiSveKurseve() {
 		return kursevi;
 	}
+
+	public static void izbrisiKurs(Kurs k, int index) {
+		try {
+			kursevi.remove(k);
+			glavniProzor.osveziTabelu();
+			if(glavniProzor.getJtaStatus().getText().isEmpty())
+				glavniProzor.getJtaStatus().setText("Izbrisan je red sa indeksom: " + (index+1));
+			else
+				glavniProzor.getJtaStatus().setText(glavniProzor.getJtaStatus().getText() +'\n'
+						+ "Izbrisan je red sa indeksom: " + (index+1));
+
+			JOptionPane.showMessageDialog(glavniProzor.getContentPane(), "Uspesno ste izbrisali kurs.",
+					"Uspesno brisanje", JOptionPane.INFORMATION_MESSAGE);
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(glavniProzor.getContentPane(), "Doslo je do greske",
+					"Greska prilikom brisanja", JOptionPane.ERROR_MESSAGE);
+		}
+	}
 }
