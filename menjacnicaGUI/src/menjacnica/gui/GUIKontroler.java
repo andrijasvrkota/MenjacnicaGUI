@@ -14,6 +14,7 @@ public class GUIKontroler {
 	private static MenjacnicaGUI glavniProzor;
 	private static DodajKursGUI dodajKursProzor;
 	private static LinkedList<Kurs> kursevi;
+	private static IzvrsiZamenuGUI zamenaProzor;
 	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -109,5 +110,23 @@ public class GUIKontroler {
 			JOptionPane.showMessageDialog(glavniProzor.getContentPane(), "Doslo je do greske",
 					"Greska prilikom brisanja", JOptionPane.ERROR_MESSAGE);
 		}
+	}
+	public static void ubaciString(){
+		StringBuffer sb = new StringBuffer();
+		sb.append("Iznos: ");
+		sb.append(zamenaProzor.getJtfIznos().getText());
+		sb.append(" " + zamenaProzor.getJcbKursevi().getSelectedItem());
+		if(zamenaProzor.getRdbtnKupovina().isSelected()) sb.append(" " +"Kupovina");
+		else sb.append(" " + "Prodaja");
+		
+//		String podaci = sb.toString();
+		
+		if(glavniProzor.getJtaStatus().getText().isEmpty())
+			glavniProzor.getJtaStatus().setText(sb.toString());
+		else
+			glavniProzor.getJtaStatus().setText(glavniProzor.getJtaStatus().getText() +'\n'
+					+ sb.toString());
+
+		
 	}
 }
