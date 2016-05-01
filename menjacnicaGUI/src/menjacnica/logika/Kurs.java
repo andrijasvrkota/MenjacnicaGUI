@@ -8,18 +8,6 @@ public class Kurs {
 	private int kupovniKurs;
 	private String naziv;
 
-	public Kurs(String sifra, String naziv, int prodajniKurs, int kupovniKurs,
-			int srednjiKurs, String skraceniNaziv) {
-		this.sifra = sifra;
-		this.naziv = naziv;
-		this.prodajniKurs = prodajniKurs;
-		this.kupovniKurs = kupovniKurs;
-		this.srednjiKurs = srednjiKurs;
-		this.skraceniNaziv = skraceniNaziv;
-	}
-	public Kurs(){
-		
-	}
 
 	public String getSifra() {
 		return sifra;

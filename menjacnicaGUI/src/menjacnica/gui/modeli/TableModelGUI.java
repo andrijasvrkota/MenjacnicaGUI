@@ -8,7 +8,7 @@ import menjacnica.logika.Kurs;
 
 public class TableModelGUI extends AbstractTableModel {
 
-	private final String[] kolone = new String[]{"Sifra","Skraceni naziv","Prodajni","Srednji","Kupovni","Naziv"};
+	private final String[] kolone = new String[]{"Sifra" , "Skraceni naziv" , "Prodajni" , "Srednji" , "Kupovni" , "Naziv"};
 	private LinkedList<Kurs> kursevi;
 	
 	public TableModelGUI(LinkedList<Kurs> kursevi) {

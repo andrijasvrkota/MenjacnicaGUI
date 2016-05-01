@@ -75,12 +75,14 @@ public class GUIKontroler {
 		k.setSrednjiKurs(Integer.parseInt(srednjiKurs));
 		k.setSkraceniNaziv(skraceniNaziv);
 		k.setSifra(sifra);
+		kursevi.add(k);
 		String spojeno = "Sifra: " +sifra + " Naziv: " +naziv + " Prodajni kurs: " +prodajniKurs
 				+ " Kupovni kurs: " +kupovniKurs + " Srednji kurs: " +srednjiKurs + " Skraceni naziv: " +skraceniNaziv;
 		if(glavniProzor.getJtaStatus().getText().equals(""))
 			glavniProzor.getJtaStatus().setText(spojeno);
 		else
 			glavniProzor.getJtaStatus().setText(glavniProzor.getJtaStatus().getText()+'\n'+spojeno);
+		
 		glavniProzor.osveziTabelu();
 	}
 	public static TableModel postaviModelZaTabelu() {
