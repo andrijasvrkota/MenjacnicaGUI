@@ -23,6 +23,7 @@ public class GUIKontroler {
 					glavniProzor = new MenjacnicaGUI();
 					glavniProzor.setVisible(true);
 					glavniProzor.setLocationRelativeTo(null);
+					zamenaProzor = new IzvrsiZamenuGUI();
 					dodajKursProzor = new DodajKursGUI();
 					kursevi = new LinkedList<Kurs>();
 				} catch (Exception e) {
@@ -33,10 +34,13 @@ public class GUIKontroler {
 	}
 	public static void zatvoriGlavniProzor() {
 		int izbor = JOptionPane.showConfirmDialog(null, "Da li zelite da izadjete iz programa?");
-		if(izbor == JOptionPane.YES_OPTION){
-			glavniProzor.dispose();
-		}
+		if(izbor == JOptionPane.YES_OPTION)	glavniProzor.dispose();
 	}
+	public static void zatvoriZamenaProzor() {
+		int izbor = JOptionPane.showConfirmDialog(null, "Da li zelite da izadjete iz programa?");
+		if(izbor == JOptionPane.YES_OPTION)	zamenaProzor.dispose();
+	}
+	
 	
 	public static void ucitavanjeFajla(){
 		JFileChooser fc = new JFileChooser();
@@ -93,7 +97,10 @@ public class GUIKontroler {
 	public static LinkedList<Kurs> vratiSveKurseve() {
 		return kursevi;
 	}
-
+	public static void prikaziZamenuProzor(){
+		zamenaProzor.setVisible(true);
+		zamenaProzor.setLocationRelativeTo(null);
+	}
 	public static void izbrisiKurs(Kurs k, int index) {
 		try {
 			kursevi.remove(k);
@@ -111,6 +118,7 @@ public class GUIKontroler {
 					"Greska prilikom brisanja", JOptionPane.ERROR_MESSAGE);
 		}
 	}
+
 	public static void ubaciString(){
 		StringBuffer sb = new StringBuffer();
 		sb.append("Iznos: ");

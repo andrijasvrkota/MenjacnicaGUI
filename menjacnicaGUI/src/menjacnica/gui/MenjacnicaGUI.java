@@ -32,6 +32,12 @@ import java.awt.event.InputEvent;
 import javax.swing.ImageIcon;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JPopupMenu;
+import java.awt.Component;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 public class MenjacnicaGUI extends JFrame {
 
@@ -44,15 +50,19 @@ public class MenjacnicaGUI extends JFrame {
 	private JButton btnIzvrsiZamenu;
 	private JTextArea jtaStatus;
 	private JScrollPane scrollPane;
-	private JTable tableMenjacnica; //************
+	private JTable tableMenjacnica;
 	private JScrollPane scrollPane_1;
 	private JMenuBar menuBar;
 	private JMenu mnNewMenu;
 	private JMenu mnNewMenu_1;
+	private JMenuItem mntmDodajKurs;
+	private JMenuItem mntmIzbrisiKurs;
+	private JMenuItem mntmIzvrsiZamenu;
 	private JMenuItem mntmOpen;
 	private JMenuItem mntmSave;
 	private JMenuItem mntmExit;
 	private JMenuItem mntmAbout;
+	private JPopupMenu popupMenu;
 
 	/**
 	 * Launch the application.
@@ -74,6 +84,12 @@ public class MenjacnicaGUI extends JFrame {
 	 * Create the frame.
 	 */
 	public MenjacnicaGUI() {
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent arg0) {
+				GUIKontroler.zatvoriGlavniProzor();
+			}
+		});
 		setIconImage(Toolkit.getDefaultToolkit().getImage(MenjacnicaGUI.class.getResource("/resources/paree.png")));
 		setTitle("Menjacnica");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -189,6 +205,7 @@ public class MenjacnicaGUI extends JFrame {
 	private JScrollPane getScrollPane_1() {
 		if (scrollPane_1 == null) {
 			scrollPane_1 = new JScrollPane();
+			addPopup(scrollPane_1, getPopupMenu_1());
 			scrollPane_1.setViewportView(getTableMenjacnica());
 		}
 		return scrollPane_1;
@@ -275,5 +292,76 @@ public class MenjacnicaGUI extends JFrame {
 	public void osveziTabelu() {
 		TableModelGUI model = (TableModelGUI) tableMenjacnica.getModel();
 		model.ucitajKurseve(GUIKontroler.vratiSveKurseve());
+	}
+	private static void addPopup(Component component, final JPopupMenu popup) {
+		component.addMouseListener(new MouseAdapter() {
+			public void mousePressed(MouseEvent e) {
+				if (e.isPopupTrigger()) {
+					showMenu(e);
+				}
+			}
+			public void mouseReleased(MouseEvent e) {
+				if (e.isPopupTrigger()) {
+					showMenu(e);
+				}
+			}
+			private void showMenu(MouseEvent e) {
+				popup.show(e.getComponent(), e.getX(), e.getY());
+			}
+		});
+	}
+	private JPopupMenu getPopupMenu_1() {
+		if (popupMenu == null) {
+			popupMenu = new JPopupMenu();
+			popupMenu.add(getMntmDodajKurs());
+			popupMenu.add(getMntmIzbrisiKurs());
+			popupMenu.add(getMntmIzvrsiZamenu());
+		}
+		return popupMenu;
+	}
+	private JMenuItem getMntmDodajKurs() {
+		if (mntmDodajKurs == null) {
+			mntmDodajKurs = new JMenuItem("Dodaj kurs");
+			mntmDodajKurs.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					GUIKontroler.prikaziDodajKursProzor();
+				}
+			});
+		}
+		return mntmDodajKurs;
+	}
+	private JMenuItem getMntmIzbrisiKurs() {
+		if (mntmIzbrisiKurs == null) {
+			mntmIzbrisiKurs = new JMenuItem("Izbrisi kurs");
+			mntmIzbrisiKurs.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					int index = tableMenjacnica.getSelectedRow();
+					if(index == -1){
+						JOptionPane.showMessageDialog(null, "Izaberite red za brisanje",
+								"Greska prilikom brisanja", JOptionPane.WARNING_MESSAGE);
+					}else{
+						int opcija = JOptionPane.showConfirmDialog(getContentPane(), "Da li ste sigurni da zelite da obrisete selektovani red?"
+							, "Upozorenje za brisanje", JOptionPane.YES_NO_CANCEL_OPTION);
+						if(opcija == JOptionPane.YES_OPTION){
+						TableModelGUI model = (TableModelGUI) tableMenjacnica.getModel();
+						Kurs k = model.getKurs(index);
+						GUIKontroler.izbrisiKurs(k, index); 
+						}
+					}
+				}
+			});
+		}
+		return mntmIzbrisiKurs;
+	}
+	private JMenuItem getMntmIzvrsiZamenu() {
+		if (mntmIzvrsiZamenu == null) {
+			mntmIzvrsiZamenu = new JMenuItem("Izvrsi zamenu");
+			mntmIzvrsiZamenu.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					GUIKontroler.prikaziZamenuProzor();
+				}
+			});
+		}
+		return mntmIzvrsiZamenu;
 	}
 }
