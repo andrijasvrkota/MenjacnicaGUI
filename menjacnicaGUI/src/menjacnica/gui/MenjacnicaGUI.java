@@ -92,7 +92,7 @@ public class MenjacnicaGUI extends JFrame {
 		});
 		setIconImage(Toolkit.getDefaultToolkit().getImage(MenjacnicaGUI.class.getResource("/resources/paree.png")));
 		setTitle("Menjacnica");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		setBounds(100, 100, 623, 386);
 		setJMenuBar(getMenuBar_1());
 		contentPane = new JPanel();

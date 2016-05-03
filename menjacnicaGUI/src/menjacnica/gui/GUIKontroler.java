@@ -34,13 +34,9 @@ public class GUIKontroler {
 	}
 	public static void zatvoriGlavniProzor() {
 		int izbor = JOptionPane.showConfirmDialog(null, "Da li zelite da izadjete iz programa?");
-		if(izbor == JOptionPane.YES_OPTION)	glavniProzor.dispose();
+		if(izbor == JOptionPane.YES_OPTION)
+			glavniProzor.dispose();
 	}
-	public static void zatvoriZamenaProzor() {
-		int izbor = JOptionPane.showConfirmDialog(null, "Da li zelite da izadjete iz programa?");
-		if(izbor == JOptionPane.YES_OPTION)	zamenaProzor.dispose();
-	}
-	
 	
 	public static void ucitavanjeFajla(){
 		JFileChooser fc = new JFileChooser();
@@ -118,7 +114,7 @@ public class GUIKontroler {
 					"Greska prilikom brisanja", JOptionPane.ERROR_MESSAGE);
 		}
 	}
-
+	
 	public static void ubaciString(){
 		StringBuffer sb = new StringBuffer();
 		sb.append("Iznos: ");
@@ -136,5 +132,8 @@ public class GUIKontroler {
 					+ sb.toString());
 
 		
+	}
+	public static void zatvoriZamenaProzor() {
+		zamenaProzor.dispose();
 	}
 }
